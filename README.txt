@@ -16,15 +16,14 @@ test4.py : that actually contain the "game" code.
 test_interface_2.py : that contains the code of the GUI done with Kivy.
 
 
-5 pictures : pic1 to 5 : used as background picture.
-3 pictures : mouse, rabbit and star : used as 
+
 
 
 
 Testing
 ----------
 
-This web app was tested with Python interpreter 3.9 and 3.8
+This  was tested with Python interpreter 3.9 
 
 File provided.
 ---------------
