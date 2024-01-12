@@ -15,6 +15,9 @@ There are 2 pythons files :
 test4.py : that actually contain the "game" code.
 test_interface_2.py : that contains the code of the GUI done with Kivy.
 
+The goal of the game is to find and click on the incrusted image 
+you will get a message in the console ( for the moment) if you succed or Failed
+
 
 
 
