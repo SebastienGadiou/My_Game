@@ -37,7 +37,7 @@ def find_image():
         if M['m00'] != 0:
             cx = int(M['m10']/M['m00'])
             cy = int(M['m01']/M['m00'])
-    print(cx,cy)
+    #print(cx,cy)
     centroid_coordinate = [cx,cy]
     #Create for the first time the SQL table :
     #cc.execute("CREATE TABLE IF NOT EXISTS centroid (cx int, cy int)")
@@ -46,20 +46,26 @@ def find_image():
     conn.commit()
 
     def click_event(event, c, d, flag, params):
+        global click_counter
         # checking for left mouse clicks
         if event == cv2.EVENT_LBUTTONDOWN:
-            # displaying the coordinates.
-            print(c,d)
-            mouse_coor=[c,d]
-            cc.execute('INSERT OR REPLACE into mousecoordinate (mouse_c, mouse_d) VALUES (?,?)', mouse_coor)
-            #cc.execute("CREATE TABLE IF NOT EXISTS mousecoordinate (mouse_c int, mouse_d int)")
-            conn.commit()
+            click_counter=0
+            click_counter+=1
+            if click_counter>=1:
+                # displaying the coordinates.
+                #print(c,d)
+                mouse_coor=[c,d]
+                cc.execute('INSERT OR REPLACE into mousecoordinate (mouse_c, mouse_d) VALUES (?,?)', mouse_coor)
+                #cc.execute("CREATE TABLE IF NOT EXISTS mousecoordinate (mouse_c int, mouse_d int)")
+                conn.commit()
+                cv2.destroyAllWindows()
 
     img = cv2.imread('saveimage.jpg', 1)
     cv2.imshow('image', img)
     cv2.setMouseCallback('image', click_event)
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    
+
 
     query = '''SELECT * from centroid INNER JOIN mousecoordinate on centroid.rowid=mousecoordinate.rowid'''
     result1 =cc.fetchall()
@@ -85,8 +91,8 @@ def find_image():
 
     diff_x = abs(result2[0]-result3[0])
     diff_y = abs(result2[1]-result3[1])
-    print(diff_x)
-    print(diff_y)
+    #print(diff_x)
+    #print(diff_y)
 
     if diff_x<=50 and diff_y<=50:
         print('You successfully detected the picture')
