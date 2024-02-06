@@ -46,11 +46,9 @@ class gamedialogbox(GridLayout):
             self.submit.bind(on_press=self.game_button)
 
     def game_button(self, instance):
-        counter =0
-        while counter<=4:
+        try:
             test4.find_image()
-            counter +=1
-        else:
+        finally:
             popup2 =Popup(title='Game is over',content=Label(text='Click ESC for a new game',bold = True,font_size=32, color = [0.2,0.4,1,1]))
             popup2.open()
 
